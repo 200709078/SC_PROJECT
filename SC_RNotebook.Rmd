@@ -1,0 +1,302 @@
+---
+title: "STATISTICAL COMPUTING PROJECT"
+output: html_document
+date: '2022-06-02'
+---
+
+Rapor için data summary yapılabilir (öğrencilerin yüzde kaçının annesi ölmüş gibi) sunum yapılacak herkes orada olacak sunum paylaşılacak rapor yazılacak. template paylaşılacak
+
+STATISTICAL COMPUTING PROJECT GROUP MEMBERS Adem VAROL - 200709078 Wael KABOUK
+
+Data Summary
+
+Data excel dosyasından okundu
+
+```{r}
+install.packages("readxl")
+library(readxl)
+dFile <- read_excel("SC_DATA.xls")
+dFile
+names(dFile)
+```
+
+```{r}
+install.packages("dplyr")
+library(dplyr)
+# Okul
+# Ortaca Anadolu Lisesi (oal) öğrenci sayısı
+nrow(filter(df, OKUL == "OAL"))
+```
+
+```{r}
+# Yunus Emre Anadolu Lisesi (yeal) öğrenci sayısı
+nrow(filter(df, OKUL == "YEAL"))
+```
+
+```{r}
+# Sınıf
+library(data.table)
+#df1$SINIF
+dt9 <- data.table(df1)[SINIF %like% "9"]
+dt10 <- data.table(df1)[SINIF %like% "10"]
+dt11 <- data.table(df1)[SINIF %like% "11"]
+dt12 <- data.table(df1)[SINIF %like% "12"]
+# 9. sınıfların sayısı
+nrow(dt9)
+```
+
+```{r}
+# 10. sınıfların sayısı
+nrow(dt10)
+```
+
+```{r}
+# 11. sınıfların sayısı
+nrow(dt11)
+```
+
+```{r}
+# 12. sınıfların sayısı
+nrow(dt12)
+```
+
+```{r}
+# Cinsiyet
+# Erkek
+nrow(filter(df, CINSIYET == 1))
+```
+
+```{r}
+# Kız
+nrow(filter(df, CINSIYET == 0))
+```
+
+```{r}
+# İkamet
+# Merkez
+nrow(filter(df, IKAMET == 1))
+```
+
+```{r}
+# Köy
+nrow(filter(df, IKAMET == 0))
+```
+
+```{r}
+# Ortalama
+mean(df$ORTALAMA)
+```
+
+```{r}
+# Oal Ortalama
+mean(filter(df, OKUL == "OAL")$ORTALAMA)
+```
+
+```{r}
+# Yeal Ortalama
+mean(filter(df, OKUL == "YEAL")$ORTALAMA)
+```
+
+```{r}
+#En başarılı öğrenci
+
+#maxOrt <- max(df$ORTALAMA)
+#maxOrtIndex <- match(maxOrt, df$ORTALAMA)
+#df$ADI.SOYADI[maxOrtIndex]
+
+df$`ADI SOYADI`[match(max(df$ORTALAMA), df$ORTALAMA)]
+
+```
+
+```{r}
+#Başarılı öğrencileri hesapla
+
+#df$ORTALAMA
+ort <- mean(df$ORTALAMA)
+#ort
+df <- transform(df, Başarılı.Mı= ifelse(ort >= ORTALAMA, 0, 1))
+data.frame(df$ORTALAMA,df$Başarılı.Mı)
+```
+
+QUESTIONS: 1. Köyde yaşayanlar, şehir merkezinde yaşayanlara göre daha başarılı mıdır ?
+
+Answer 1
+
+```{r}
+# Köyde (0) yaşayan başarılı öğrenci (1) sayısı
+
+#df$IKAMET
+#df$Başarılı.Mı
+koyDf <- filter(df, IKAMET == 0)
+basariliDf <- filter(df, Başarılı.Mı == 1)
+koyIntersectDf <- intersect(koyDf, basariliDf)
+# Kesişim df
+
+#data.frame(koyIntersectDf$IKAMET, koyIntersectDf$Başarılı.Mı)
+
+koyBasariliSayisi <- nrow(koyIntersectDf)
+
+# Merkezde (1) yaşayan başarılı öğrenci (1) sayısı
+merkezDf <- filter(df, IKAMET == 1)
+merkezIntersectDf <- intersect(merkezDf, basariliDf)
+# Kesişim df
+
+#data.frame(merkezIntersectDf$IKAMET, merkezIntersectDf$Başarılı.Mı)
+
+merkezBasariliSayisi <- nrow(merkezIntersectDf)
+
+if (koyBasariliSayisi > merkezBasariliSayisi) {
+  print("Köy başarılı")
+} else {
+  print("Şehir Merkez başarılı")
+}
+  
+```
+
+2.  Anne ve babanın ayrı olmasından en olumsuz kızlar mı yoksa erkekler mi etkilenmiştir.
+
+Answer 2
+
+```{r}
+#df$Anne.ve.babası.ayrı.mı.
+
+#Anne ve Baba ayrı mı (1) kız (0) ve başarısız (0) öğrenci sayısı
+
+#df$CINSIYET
+#df$Başarılı.Mı
+anneVeBabaAyriMiKızBasarisizDf <- filter(df, Anne.ve.babası.ayrı.mı. == 1 & CINSIYET == 0 & Başarılı.Mı == 0)
+
+anneVeBabaAyriMiKızBasarisizSayisi <- nrow(anneVeBabaAyriMiKızBasarisizDf)
+
+#Anne ve Baba ayrı mı (1) erkek (1) ve başarısız (0) öğrenci sayısı
+anneVeBabaAyriMiErkekBasarisizDf <- filter(df, Anne.ve.babası.ayrı.mı. == 1 & CINSIYET == 1 & Başarılı.Mı == 0)
+
+anneVeBabaAyriMiErkekBasarisizSayisi <- nrow(anneVeBabaAyriMiErkekBasarisizDf)
+
+if (anneVeBabaAyriMiKızBasarisizSayisi > anneVeBabaAyriMiErkekBasarisizSayisi) {
+  print("Anne ve Baba ayrımından en çok etkilenen öğrenciler kız öğrencilerdir.")
+} else if (anneVeBabaAyriMiKızBasarisizSayisi < anneVeBabaAyriMiErkekBasarisizSayisi) {
+  print("Anne ve Baba ayrımından en çok etkilenen öğrenciler erkek öğrencilerdir.")
+} else {
+  print("Anne ve Babanın ayrımından her iki cinsiyetde eşit etkileniyor.")
+}
+```
+
+3.  Hangi özellik başarı için daha önemlidir?
+
+Answer 3
+
+```{r}
+#Column silmek için
+
+#df = df[,!(names(df) %in% c("Geçer.Mİ","Geçer.Mİ.1", "Geçer.Mİ.2"))]
+
+#df den sadece soruları aldık
+
+#names(df)
+dfSorular <- df[, !(names(df) %in% c("OKUL", "SINIF", "NO", "ADI.SOYADI", "CINSIYET", "IKAMET", "ORTALAMA"))]
+
+install.packages("FSelectorRcpp")
+library("FSelectorRcpp")
+informatinGain <- information_gain(formula(dfSorular), dfSorular, equal = TRUE)
+maxGain <- max(informatinGain$importance)
+maxGainIndex <- match(maxGain, informatinGain$importance)
+informatinGain$attributes[maxGainIndex]
+```
+
+4.  Yeni bir öğrenci geçer not alabilir mi?
+
+Answer 4
+
+```{r}
+#https://www.geeksforgeeks.org/naive-bayes-classifier-in-r-programming/
+install.packages("e1071")
+install.packages("caTools")
+install.packages("caret")
+
+library(e1071)
+library(caTools)
+library(caret)
+
+# Splitting data into train
+# and test data
+split <- sample.split(dfSorular, SplitRatio = 0.7)
+split
+trainCl <- subset(dfSorular, split == "TRUE")
+trainCl
+testCl <- subset(dfSorular, split == "FALSE")
+testCl
+
+# Feature Scaling
+trainScale <- scale(trainCl[, 1:4])
+trainScale
+testScale <- scale(testCl[, 1:4])
+testScale
+
+# Fitting Naive Bayes Model
+# to training dataset
+set.seed(120) #Setting Seed
+classifierCl <- naiveBayes(formula(dfSorular), data = trainCl)
+classifierCl
+
+# Predicting on test data'
+yPred <- predict(classifierCl, newdata = testCl)
+yPred
+
+# Confusion Matrix
+cm <- table(testCl$Başarılı.Mı, yPred)
+cm
+
+# Model Evaluation
+confusionMatrix(cm)
+```
+
+BAKILCAK OLMADI DEĞİŞECEK 5. En benzer ve en farklı öğrenciler (4 col)
+
+Answer 5
+
+```{r}
+#install.packages("cluster")
+#library(cluster)
+#df$ADI.SOYADI
+#df$Anne.en.fazla.ilkokul.mezunu.mu.
+#df$Anne.ve.baba.boşanmış.mı.
+#df$Anne.hayatta.değil
+#df$Dede.Nene.ile.Yaşayan
+#fourCol <- df[, (names(df) %in% c("ADI.SOYADI", "Anne.en.fazla.ilkokul.mezunu.mu.", "Anne.ve.baba.boşanmış.mı.", "Anne.hayatta.değil", "Dede.Nene.ile.Yaşayan"))]
+#fourCol
+```
+
+6.  Anne babanın eğitim durumu hangi sınıf seviyesinde daha etkilidir?
+
+Answer 6
+
+```{r}
+#df$Anne.en.fazla.ilkokul.mezunu.mu.
+#df$Baba.en.fazla.ilkokul.mezunu.mu.
+df1 <- transform(df, Anne.ve.Baba.en.fazla.ilkokul.mezunu.Mu = ifelse(Anne.en.fazla.ilkokul.mezunu.mu. & Baba.en.fazla.ilkokul.mezunu.mu., 1, 0))
+data.frame(df1$Anne.en.fazla.ilkokul.mezunu.mu., df1$Baba.en.fazla.ilkokul.mezunu.mu., df1$Anne.ve.Baba.en.fazla.ilkokul.mezunu.Mu)
+
+dt9 <- filter(dt9, Anne.ve.Baba.en.fazla.ilkokul.mezunu.Mu == 0)
+dt10 <- filter(dt10, Anne.ve.Baba.en.fazla.ilkokul.mezunu.Mu == 0)
+dt11 <- filter(dt11, Anne.ve.Baba.en.fazla.ilkokul.mezunu.Mu == 0)
+dt12 <- filter(dt12, Anne.ve.Baba.en.fazla.ilkokul.mezunu.Mu == 0)
+
+dt9Mean <- mean(dt9$ORTALAMA)
+dt10Mean <- mean(dt10$ORTALAMA)
+dt11Mean <- mean(dt11$ORTALAMA)
+dt12Mean <- mean(dt12$ORTALAMA)
+
+maxSinif <- max(dt9Mean, dt10Mean, dt11Mean, dt12Mean)
+maxSinif
+
+if (dt9Mean > dt10Mean && dt9Mean > dt11Mean && dt9Mean > dt12Mean) {
+  print("Anne ve babanın eğitim durumu en fazla 9. sınıfları etkilemiştir.")
+} else if (dt10Mean > dt9Mean && dt10Mean > dt11Mean && dt10Mean > dt12Mean) {
+  print("Anne ve babanın eğitim durumu en fazla 10. sınıfları etkilemiştir.")
+} else if (dt11Mean > dt9Mean && dt11Mean > dt10Mean && dt11Mean > dt12Mean) {
+  print("Anne ve babanın eğitim durumu en fazla 11. sınıfları etkilemiştir.")
+} else {
+  print("Anne ve babanın eğitim durumu en fazla 12. sınıfları etkilemiştir.")
+}
+```
