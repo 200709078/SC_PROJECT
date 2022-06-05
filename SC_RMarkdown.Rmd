@@ -1,11 +1,11 @@
 ---
 title: "STATISTICAL COMPUTING PROJECT"
-author: "Adem VAROL - Wael KABOUK"
+author: "Adem VAROL - 2007 - Wael KABOUK"
 date: '2022-06-05'
 output: html_document
 ---
 
-```{r setup, include=FALSE, install.packages("readxl"), library(readxl) }
+```{r setup, include=FALSE }
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -52,21 +52,116 @@ PROJE AKIŞI VE GEREKLİLİKLERİ
 Please find your original dataset or datasets; and describe your data in the first step.
 
 ```{r}
+install.packages("readxl")
+library("readxl")
+
 dFile <- read_excel("SC_DATA.xls")
 names(dFile)
-summary(dFile)
 ```
 - DESCRIBE DATA -
 
-
 2. (3p) Exploratory and descriptive data analysis:
 Use “Exploratory and descriptive data analysis”. Talk about your categorical and quantitative data or your ordinal variables etc. Write down your comments.
+```{r}
+summary(dFile)
+## head(dFile)
+```
+
+
 3. (3p) Data Visualization:
 Use at least 4 diffrerent “data visualization techniques” and talk about your data further (distribution, outliers, variability, etc). Use at least 2 of the visualizations to compare two groups (like female/male; smoker/non-smoker etc).
+
+```{r}
+library(MASS)
+library(ggplot2)
+
+barplot(dFile$ORTALAMA, main = 'ORTALAMALAR', xlab = 'ORTALAMA SEVİYELERİ', horiz = FALSE)
+
+#histograms
+hist(dFile$ORTALAMA, main ="Histogram Plot for Ortalamalar", xlab ="ORTALAMALAR", xlim = c(0, 100),
+    col ="blue", freq = TRUE, breaks = 10)
+
+hist(dFile$CINSIYET, col="red", xlab = "CINSIYET",main = "Histogram Plot for CINSIYET",breaks=2)
+
+#density plots with basic R
+plot(density(dFile$ORTALAMA), xlab = "Ortalama",main = "Histogram Plot for ORTALAMA",col="blue")
+plot(density(dFile$CINSIYET),xlab = "Cinsiyet" ,main = "Density Plot for Cinsiyet",col="red")
+
+plot(density(subset(dFile, CINSIYET=="0")$ORTALAMA), xlab = "KIZLAR",main = "Histogram Plot for Kızlar",col="blue")
+
+plot(density(subset(dFile, CINSIYET=="1")$ORTALAMA), xlab = "ERKEKLER",main = "Histogram Plot for Erkekler",col="red")
+
+
+
+#density plots with ggplot2
+ggplot(dFile, aes(x=ORTALAMA)) + geom_density()
+ggplot(dFile, aes(x=CINSIYET)) + geom_density()
+
+
+#qqplots
+qqnorm(dFile$ORTALAMA, pch = 1, frame = FALSE,xlab = "ORTALAMA" )
+##qqline(dFile$ORTALAMA, col = "steelblue", lwd = 2)
+
+#boxplots
+boxplot(dFile$ORTALAMA)
+```
+
 4. (3p) Central Limit Theorem:
 Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distribured normally. (have a look at the example in Statistics_Lecture_5, page9)
+```{r}
+install.packages("shiny")
+library(shiny)
+
+hist(dFile$ORTALAMA, main ="Histogram Plot for Ortalamalar", xlab ="ORTALAMALAR", xlim = c(0, 100),
+    col ="blue", freq = TRUE, breaks = 10)
+
+shapiro.test(dFile$ORTALAMA)
+
+#H0: Data is Normally Distributed
+#H1: Data is not Normally Distributed    alpha=0.05
+
+#If p ≤ 0.05: then the null hypothesis can be rejected 
+#If p > 0.05: then the null hypothesis cannot be rejected 
+# So p is less than 0.05 our data is not normally distributed.
+
+```
+
 5. (3p) Confidence Intervals:
 Build 2 confidence intervals and make “clear comments” about your findings.
+
+```{r}
+#t-test
+
+ort.mean <- mean(dFile$ORTALAMA)
+ort.sd <- sd(dFile$ORTALAMA)
+ort.se <- ort.sd/sqrt(length(dFile))
+
+t.test(dFile$ORTALAMA,mu=2000)
+
+
+#Confidence interval 
+
+t.score1 <-  qt(p=0.05, df=80,lower.tail=F)
+
+error <- t.score1 * ort.se
+lower.bound <- ort.mean  - error
+upper.bound <- ort.mean  + error
+print(c(lower.bound,upper.bound))
+
+a <- subset(dFile, ORTALAMA < 70)
+
+#1 — Hypothesis for first Fisher’s Exact Test (Alternative Two Sided):
+#Ho: The odds ratio is equal to 1
+#Ha: The odds ratio is not equal to 1
+#2 — Hypothesis for first Fisher’s Exact Test (Alternative Less):
+#Ho: The odds ratio is equal to or greater than 1
+#Ha: The odds ratio is less than 1
+#3 — Hypothesis for first Fisher’s Exact Test (Alternative Greater):
+#Ho: The odds ratio is equal to or less than 1
+#Ha: The odds ratio is greater than 1
+```
+
+
 6. (3p) Transformation:
 Try to make one transformation (log transformation, Box-Cok transformation, etc) for one of your quantitative variables, which is not normally distributed; but will be normal or more normal, after the transformation.
 
