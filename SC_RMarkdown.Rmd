@@ -1,0 +1,241 @@
+---
+title: "STATISTICAL COMPUTING PROJECT"
+author: "Adem VAROL - Wael KABOUK"
+date: '2022-06-05'
+output: html_document
+---
+
+```{r setup, include=FALSE, install.packages("readxl"), library(readxl) }
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+######################################################################################
+PROJECT FLOW AND REQUIREMENTS
+• Please prepare your project in R Markdown in the following format which is described in this document.
+• “Clear comments before and after every little step” and “clear data visualizations with desriptions” will make good points.
+• Don’t ever put the whole data in the project report!! If you want to show your data, please just show the first rows (6-10); or use summaries- data visualization techniques instead of data itself.
+• Write your names in the author part.
+• Put your final docs (Project report as an html and a short video of no more than 10 minutes) in dys.
+• You will be graded as: (82p following steps; 10p report clarity and quality, 10p video presentation) ☺
+
+PROJE AKIŞI VE GEREKLİLİKLERİ
+• Lütfen projenizi bu belgede açıklanan aşağıdaki formatta R Markdown'da hazırlayın.
+• “Her küçük adımdan önce ve sonra net yorumlar” ve “açıklamalarla net veri görselleştirmeleri” iyi noktalara yol açacaktır.
+• Tüm verileri asla proje raporuna koymayın!! Verilerinizi göstermek istiyorsanız, lütfen sadece ilk satırları gösterin (6-10); veya verilerin kendisi yerine özetler-veri görselleştirme tekniklerini kullanın.
+• Yazar kısmına isimlerinizi yazın.
+• Nihai belgelerinizi (html olarak proje raporu ve 10 dakikadan uzun olmayan kısa bir video) dis içine koyun.
+• Şu şekilde derecelendirileceksiniz: (82p aşağıdaki adımlar; 10p rapor netliği ve kalitesi, 10p video sunumu)
+
+
+
+1. (3p) Data:
+Please find your original dataset or datasets; and describe your data in the first step.
+
+```{r}
+dFile <- read_excel("SC_DATA.xls")
+names(dFile)
+summary(dFile)
+```
+- DESCRIBE DATA -
+
+
+2. (3p) Exploratory and descriptive data analysis:
+Use “Exploratory and descriptive data analysis”. Talk about your categorical and quantitative data or your ordinal variables etc. Write down your comments.
+3. (3p) Data Visualization:
+Use at least 4 diffrerent “data visualization techniques” and talk about your data further (distribution, outliers, variability, etc). Use at least 2 of the visualizations to compare two groups (like female/male; smoker/non-smoker etc).
+4. (3p) Central Limit Theorem:
+Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distribured normally. (have a look at the example in Statistics_Lecture_5, page9)
+5. (3p) Confidence Intervals:
+Build 2 confidence intervals and make “clear comments” about your findings.
+6. (3p) Transformation:
+Try to make one transformation (log transformation, Box-Cok transformation, etc) for one of your quantitative variables, which is not normally distributed; but will be normal or more normal, after the transformation.
+
+1. (3p) Veri:
+Lütfen orijinal veri kümenizi veya veri kümelerinizi bulun; ve ilk adımda verilerinizi açıklayın.
+2. (3p) Keşfedici ve tanımlayıcı veri analizi:
+“Açıklayıcı ve tanımlayıcı veri analizi”ni kullanın. Kategorik ve nicel verileriniz veya sıra değişkenleriniz vb. hakkında konuşun. Yorumlarınızı yazın.
+3. (3p) Veri Görselleştirme:
+En az 4 farklı “veri görselleştirme tekniği” kullanın ve verileriniz hakkında daha fazla konuşun (dağıtım, aykırı değerler, değişkenlik vb.). İki grubu karşılaştırmak için görselleştirmelerden en az 2'sini kullanın (kadın/erkek; sigara içen/içmeyen vb.).
+4. (3p) Merkezi Limit Teoremi:
+Değişkenlerinizden birini seçin. Merkezi limit teoremini (CLT) kanıtlayan kendi fonksiyonunuzu yazın: dağılım ne olursa olsun, örnekleme verilerinin normal olarak dağıtılacağını gösterin. (Statistics_Lecture_5, sayfa 9'daki örneğe bakın)
+5. (3p) Güven Aralıkları:
+2 güven aralığı oluşturun ve bulgularınız hakkında "net yorumlar" yapın.
+6. (3p) Dönüşüm:
+Normalde dağılmayan nicel değişkenlerinizden biri için bir dönüşüm (log dönüşümü, Box-Cok dönüşümü vb.) yapmaya çalışın; ancak dönüşümden sonra normal veya daha normal olacaktır.
+
+
+
+7. (2p every item) Single t-test (Welch t-test or Wilcoxon rank-sum test)
+Implement a single t-test for one of your “normally or not-normally distributed” variable:
+a. Aim
+In words, what is your objective here?
+b. Hypothesis and level of significance:
+Write your hypothesis in scientific form and determine the level of singnificance.
+c. Assumption Check:
+Check the required assumptions and “comment on each of them is a must!”.
+d. Indicate “which test you choose” “for what reason”
+e. Result:
+Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
+f. Conclusion:
+You got your result in item e. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+g. What can be Type-1 and Type-2 error here?
+
+a. Amaç
+Kısacası buradaki amacınız nedir?
+b. Hipotez ve önem düzeyi:
+Hipotezinizi bilimsel biçimde yazın ve anlamlılık düzeyini belirleyin.
+c. Varsayım Kontrolü:
+Gerekli varsayımları kontrol edin ve “her biri için yorum yapılması zorunludur!”.
+d. “Hangi testi seçtiğinizi” “ne sebeple” belirtin
+e. Sonuç:
+Testin çıktısını verin ve sonucu yazın (örn: p değeri alfadan küçük olduğu için boş hipotezi reddediyorum).
+f. Çözüm:
+Sonucunuzu e maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
+g. Burada Tip-1 ve Tip-2 hatası ne olabilir?
+
+
+
+8. (2p every item) Paired t-test:
+a. Aim
+In words, what is your objective here?
+b. Hypothesis and level of significance:
+Write your hypothesis in scientific form and determine the level of singnificance.
+c. Assumption Check:
+Tell why you use the paired t test, and Check the required assumptions. “comment on each of them is a must!”.
+d. Result:
+Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
+e. Conclusion:
+You got your result in item d. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+
+a. Amaç
+Kısacası buradaki amacınız nedir?
+b. Hipotez ve önem düzeyi:
+Hipotezinizi bilimsel biçimde yazın ve anlamlılık düzeyini belirleyin.
+c. Varsayım Kontrolü:
+Eşleştirilmiş t testini neden kullandığınızı söyleyin ve gerekli varsayımları kontrol edin. “Her birine yorum yapılması şart!”.
+d. Sonuç:
+Testin çıktısını verin ve sonucu yazın (örn: p değeri alfadan küçük olduğu için boş hipotezi reddediyorum).
+e. Çözüm:
+Sonucunuzu d maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
+
+
+
+9. (2p every item) Fisher’s exact test for count data
+a. Aim
+In words, what is your objective here?
+b. Hypothesis and level of significance:
+Write your hypothesis in scientific form and determine the level of singnificance.
+c. Result:
+Give the output of the test and write down the result (since p value is less than alpha, I reject the null hypothesis).
+d. Conclusion:
+You got your result in item c. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+e. Odds Ratio:
+Comment about the odds ratio, what does it indicate?
+
+a. Amaç
+Kısacası buradaki amacınız nedir?
+b. Hipotez ve önem düzeyi:
+Hipotezinizi bilimsel biçimde yazın ve anlamlılık düzeyini belirleyin.
+c. Sonuç:
+Testin çıktısını verin ve sonucu yazın (p değeri alfadan küçük olduğu için boş hipotezi reddediyorum).
+d. Çözüm:
+Sonucunuzu c maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
+e. Olasılık oranı:
+Olasılık oranı hakkında yorum yapın, neyi gösterir?
+
+
+
+10. (2p every item) ANOVA and Tukey Test
+a. Aim
+In words, what is your objective here?
+b. Hypothesis and level of significance:
+Write your hypothesis in scientific form and determine the level of singnificance.
+c. Assumption Check:
+Check the required assumptions. “comment on each of them is a must!”.
+d. Result of ANOVA:
+Give the output of the test and write down the result (ex:since p value is less than alpha, I reject the null hypothesis)
+e. Conclusion of ANOVA:
+You got your result in item d. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+f. Result of Tukey:
+Give the output of the test and write down the result (ex:since p value is less than alpha, I reject the null hypothesis)
+g. Conclusion of Tukey:
+You got your result in item f. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+
+a. Amaç
+Kısacası buradaki amacınız nedir?
+b. Hipotez ve önem düzeyi:
+Hipotezinizi bilimsel biçimde yazın ve anlamlılık düzeyini belirleyin.
+c. Varsayım Kontrolü:
+Gerekli varsayımları kontrol edin. “Her birine yorum yapılması şart!”.
+d. ANOVA'nın Sonucu:
+Testin çıktısını verin ve sonucu yazın (örn: p değeri alfadan küçük olduğu için boş hipotezi reddediyorum)
+e. ANOVA'nın Sonuçları:
+Sonucunuzu d maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
+f. Tukey'in Sonucu:
+Testin çıktısını verin ve sonucu yazın (örn: p değeri alfadan küçük olduğu için boş hipotezi reddediyorum)
+g. Tukey'in Sonuçları:
+Sonucunuzu f maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
+
+
+
+11. (2p every item) Multiple Linear Regression
+a. Aim
+In words, what is your objective here?
+b. Regression Equation:
+Multiple linear regression (MLR) is a statistical technique that uses several explanatory variables to predict the outcome of a response variable. Which ones are your explanatory variables and which one is your response variable? Write down the equation of your regression using those variables.
+c. Hypothesis and level of significance:
+Write your hypothesis in scientific form and determine the level of singnificance.
+d. Find the Best Model:
+Use step function and find the best model, describe the reason which makes it the best one.
+e. Assumption Check:
+Check the required assumptions, “comment on each of them is a must!”.
+f. Result:
+Give the output of the best model and write down the result.
+g. Conclusion:
+You got your result in item f. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+h. Prediction:
+Think of a new X variable, or variables (just make it up). Use your best model in order to predict the new Y variable for those X variables.
+
+a. Amaç
+Kısacası buradaki amacınız nedir?
+b. Regresyon Denklemi:
+Çoklu doğrusal regresyon (MLR), bir yanıt değişkeninin sonucunu tahmin etmek için birkaç açıklayıcı değişken kullanan istatistiksel bir tekniktir. Hangileri açıklayıcı değişkenleriniz ve hangileri yanıt değişkeniniz? Bu değişkenleri kullanarak regresyonunuzun denklemini yazın.
+c. Hipotez ve önem düzeyi:
+Hipotezinizi bilimsel biçimde yazın ve anlamlılık düzeyini belirleyin.
+d. En İyi Modeli Bulun:
+Adım işlevini kullanın ve en iyi modeli bulun, onu en iyi yapan nedeni açıklayın.
+e. Varsayım Kontrolü:
+Gerekli varsayımları kontrol edin, “her biri için yorum yapılması zorunludur!”.
+f. Sonuç:
+En iyi modelin çıktısını verin ve sonucu yazın.
+g. Çözüm:
+Sonucunuzu f maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
+h. Tahmin:
+Yeni bir X değişkeni veya değişkenler düşünün (sadece uydurun). Bu X değişkenleri için yeni Y değişkenini tahmin etmek için en iyi modelinizi kullanın.
+
+
+######################################################################################
+
+
+
+
