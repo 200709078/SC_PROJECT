@@ -1,7 +1,8 @@
 ---
 title: "STATISTICAL COMPUTING PROJECT"
 author: "Adem VAROL - 200709078 / Wael KABOUK - 190709723"
-date: '2022-06-05'
+#date: '2022-06-05'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
 
