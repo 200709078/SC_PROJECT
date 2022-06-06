@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-1. (3p) Data: ALOOOOOOOOOOOOOOOOOOO.....
+1. (3p) Data:
 Please find your original dataset or datasets; and describe your data in the first step.
 
 ```{r}
