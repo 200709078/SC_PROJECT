@@ -1,81 +1,87 @@
 ---
 title: "STATISTICAL COMPUTING PROJECT"
-author: "Adem VAROL - 200709078 / Wael KABOUK - 190709723"
-#date: '2022-06-05'
+subtitle: Adem VAROL - 200709078 / Wael KABOUK - 190709723
+#author: "Adem VAROL - 200709078 / Wael KABOUK - 190709723"
+output:
+  html_document: default
+  pdf_document: default
+font-family: Gill Sans
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
 ---
 
 ```{r setup, include=FALSE }
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-1. (3p) Data:
-Please find your original dataset or datasets; and describe your data in the first step.
+## 1. (3p) Data:
+Please find your original data set or data sets; and describe your data in the first step.
+ATTRIBUTES OF OUR DATA
+#### DESCRIBE DATA
 
+## 2. (3p) Exploratory and descriptive data analysis:
+Use “Exploratory and descriptive data analysis”. Talk about your categorical and quantitative data or your ordinal variables etc. Write down your comments.
 ```{r}
 ## install.packages("readxl")
 library("readxl")
-
 dFile <- read_excel("SC_DATA.xls")
 names(dFile)
 ```
-- DESCRIBE DATA -
+ORDINAL VARIABLE:          
+NUMBER (1470, 1471, ...)
+FULLNAME (Adem VAROL, ... , Wael KABOUK)
 
-2. (3p) Exploratory and descriptive data analysis:
-Use “Exploratory and descriptive data analysis”. Talk about your categorical and quantitative data or your ordinal variables etc. Write down your comments.
+CATEGORICAL VARIABLES:
+SCHOOL (OAL, YEAL)
+CLASS (9A, 9B, 9C, ...)
+GENDER (1 : Male, 0 : Female)
+STAY (1 : Stay in the town, 0 : Stay in the village)
+MAF_PS (Mother and father are primary school graduates, 1 : Yes, 0 : No)
+CHILD_1 (1 : One Kid, 0 : Two Kids)
+CHILDREN_3 (1 : Three Kids, 0 : More than three children)
+MAF_DIV (Mother and father divided, 1 : Yes, 0 : No)
+MOTHER_DIED (1 : Yes, 0 : No)
+FATHER_DIED (1 : Yes, 0 : No)
+FAMILY_PATIENT (Has a family member who is sick, 1 : Yes, 0 : No)
+STUDENT_PATIENT (The student has a sick,  1 : Yes, 0 : No)
+
+QUANTITATIVE VARIABLE:
+GPA (Grade point average)
 ```{r}
-summary(dFile)
+summary(dFile$GPA)
 ## head(dFile)
 ```
 
-3. (3p) Data Visualization:
-Use at least 4 diffrerent “data visualization techniques” and talk about your data further (distribution, outliers, variability, etc). Use at least 2 of the visualizations to compare two groups (like female/male; smoker/non-smoker etc).
+## 3. (3p) Data Visualization:
+Use at least 4 different “data visualization techniques” and talk about your data further (distribution, outliers, variability, etc). Use at least 2 of the visualizations to compare two groups (like female/male; smoker/non-smoker etc).
 
 ```{r}
 library(MASS)
 library(ggplot2)
 
-barplot(dFile$ORTALAMA, main = 'ORTALAMALAR', xlab = 'ORTALAMA SEVİYELERİ', horiz = FALSE)
+barplot(dFile$GPA, main = 'BAR PLOT FOR GPA', xlab = 'STUDENTS', ylab = "GRADES", horiz = FALSE, ylim = c(0,100))
 
-#histograms
-hist(dFile$ORTALAMA, main ="Histogram Plot for Ortalamalar", xlab ="ORTALAMALAR", xlim = c(0, 100),
-    col ="blue", freq = TRUE, breaks = 10)
+hist(dFile$GPA, main ="HISTOGRAM PLOT FOR GPA", xlab ="GPA", xlim = c(0, 100), col ="blue", freq = TRUE, breaks = 10)
 
-hist(dFile$CINSIYET, col="red", xlab = "CINSIYET",main = "Histogram Plot for CINSIYET",breaks=2)
+plot(density(subset(dFile, GENDER=="0")$GPA), xlab = "GPA OF GIRLS", main = "HISTOGRAM PLOT FOR GIRLS",col="pink")
+plot(density(subset(dFile, GENDER=="1")$GPA), xlab = "GPA OF BOYS", main = "HISTOGRAM PLOT FOR BOYS",col="blue")
 
-#density plots with basic R
-plot(density(dFile$ORTALAMA), xlab = "Ortalama",main = "Histogram Plot for ORTALAMA",col="blue")
-plot(density(dFile$CINSIYET),xlab = "Cinsiyet" ,main = "Density Plot for Cinsiyet",col="red")
+ggplot(dFile, aes(x=GPA)) + geom_density(col="red")
 
-plot(density(subset(dFile, CINSIYET=="0")$ORTALAMA), xlab = "KIZLAR",main = "Histogram Plot for Kızlar",col="blue")
+qqnorm(dFile$GPA, pch = 1, frame = TRUE, main ="NORMAL Q-Q PLOT FOR GPA")
+# qqline(dFile$GPA, col = "steelblue", lwd = 2)
 
-plot(density(subset(dFile, CINSIYET=="1")$ORTALAMA), xlab = "ERKEKLER",main = "Histogram Plot for Erkekler",col="red")
-
-
-#density plots with ggplot2
-ggplot(dFile, aes(x=ORTALAMA)) + geom_density()
-ggplot(dFile, aes(x=CINSIYET)) + geom_density()
-
-
-#qqplots
-qqnorm(dFile$ORTALAMA, pch = 1, frame = FALSE,xlab = "ORTALAMA" )
-##qqline(dFile$ORTALAMA, col = "steelblue", lwd = 2)
-
-#boxplots
-boxplot(dFile$ORTALAMA)
+boxplot(main="HISTOGRAM PLOT FOR GPA", dFile$GPA, ylab ="GPA", col="steelblue")
 ```
 
-4. (3p) Central Limit Theorem:
+## 4. (3p) Central Limit Theorem:
 Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distribured normally. (have a look at the example in Statistics_Lecture_5, page9)
 ```{r}
-## install.packages("shiny")
 library(shiny)
 
-hist(dFile$ORTALAMA, main ="Histogram Plot for Ortalamalar", xlab ="ORTALAMALAR", xlim = c(0, 100),
+hist(dFile$GPA, main ="Histogram Plot for GPA", xlab ="GPA", xlim = c(0, 100),
     col ="blue", freq = TRUE, breaks = 10)
 
-shapiro.test(dFile$ORTALAMA)
+shapiro.test(dFile$GPA)
 
 #H0: Data is Normally Distributed
 #H1: Data is not Normally Distributed    alpha=0.05
@@ -86,29 +92,28 @@ shapiro.test(dFile$ORTALAMA)
 
 ```
 
-5. (3p) Confidence Intervals:
+## 5. (3p) Confidence Intervals:
 Build 2 confidence intervals and make “clear comments” about your findings.
 
 ```{r}
 #t-test
+gpa.mean <- mean(dFile$GPA)
+gpa.sd <- sd(dFile$GPA)
+gpa.se <- gpa.sd/sqrt(length(dFile))
 
-ort.mean <- mean(dFile$ORTALAMA)
-ort.sd <- sd(dFile$ORTALAMA)
-ort.se <- ort.sd/sqrt(length(dFile))
-
-t.test(dFile$ORTALAMA,mu=2000)
+t.test(dFile$GPA,mu=2000)
 
 
 #Confidence interval 
-
 t.score1 <-  qt(p=0.05, df=80,lower.tail=F)
 
-error <- t.score1 * ort.se
-lower.bound <- ort.mean  - error
-upper.bound <- ort.mean  + error
-print(c(lower.bound,upper.bound))
+error <- t.score1 * gpa.se
+lower.bound <- gpa.mean  - error
+upper.bound <- gpa.mean  + error
+sprintf('%f < x < %f',lower.bound, upper.bound)
+# print(c(lower.bound, upper.bound))
 
-a <- subset(dFile, ORTALAMA < 70)
+a <- subset(dFile, GPA < 70)
 
 #1 — Hypothesis for first Fisher’s Exact Test (Alternative Two Sided):
 #Ho: The odds ratio is equal to 1
@@ -122,14 +127,14 @@ a <- subset(dFile, ORTALAMA < 70)
 ```
 
 
-6. (3p) Transformation:
+## 6. (3p) Transformation:
 Try to make one transformation (log transformation, Box-Cok transformation, etc) for one of your quantitative variables, which is not normally distributed; but will be normal or more normal, after the transformation.
 
 6. (3p) Dönüşüm:
 Normalde dağılmayan nicel değişkenlerinizden biri için bir dönüşüm (log dönüşümü, Box-Cok dönüşümü vb.) yapmaya çalışın; ancak dönüşümden sonra normal veya daha normal olacaktır.
 
 
-7. (2p every item) Single t-test (Welch t-test or Wilcoxon rank-sum test)
+## 7. (2p every item) Single t-test (Welch t-test or Wilcoxon rank-sum test)
 Implement a single t-test for one of your “normally or not-normally distributed” variable:
 a. Aim
 In words, what is your objective here?
@@ -159,7 +164,7 @@ g. Burada Tip-1 ve Tip-2 hatası ne olabilir?
 
 
 
-8. (2p every item) Paired t-test:
+## 8. (2p every item) Paired t-test:
 a. Aim
 In words, what is your objective here?
 b. Hypothesis and level of significance:
@@ -184,7 +189,7 @@ Sonucunuzu d maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik
 
 
 
-9. (2p every item) Fisher’s exact test for count data
+## 9. (2p every item) Fisher’s exact test for count data
 a. Aim
 In words, what is your objective here?
 b. Hypothesis and level of significance:
@@ -209,7 +214,7 @@ Olasılık oranı hakkında yorum yapın, neyi gösterir?
 
 
 
-10. (2p every item) ANOVA and Tukey Test
+## 10. (2p every item) ANOVA and Tukey Test
 a. Aim
 In words, what is your objective here?
 b. Hypothesis and level of significance:
@@ -242,7 +247,7 @@ Sonucunuzu f maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik
 
 
 
-11. (2p every item) Multiple Linear Regression
+## 11. (2p every item) Multiple Linear Regression
 a. Aim
 In words, what is your objective here?
 b. Regression Equation:
@@ -276,10 +281,3 @@ g. Çözüm:
 Sonucunuzu f maddesinde aldınız. Sonucunuzun sonucunu, herhangi bir istatistik bilmeyen okuyucunun bulgularınızı anlayabileceği şekilde yazın.
 h. Tahmin:
 Yeni bir X değişkeni veya değişkenler düşünün (sadece uydurun). Bu X değişkenleri için yeni Y değişkenini tahmin etmek için en iyi modelinizi kullanın.
-
-
-######################################################################################
-
-
-
-
