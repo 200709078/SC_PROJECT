@@ -6,7 +6,7 @@ output:
   html_document: default
   pdf_document: default
 font-family: Gill Sans
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "`r format(Sys.time(), '%d %B %Y')`"
 ---
 
 ```{r setup, include=FALSE }
