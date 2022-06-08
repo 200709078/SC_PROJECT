@@ -69,7 +69,12 @@ ggplot(dFile, aes(x=GPA)) + geom_density(col="red")
 qqnorm(dFile$GPA, pch = 1, frame = TRUE, main ="NORMAL Q-Q PLOT FOR GPA")
 # qqline(dFile$GPA, col = "steelblue", lwd = 2)
 
-boxplot(main="HISTOGRAM PLOT FOR GPA", dFile$GPA, ylab ="GPA", col="steelblue")
+dataOAL <- subset(dFile, SCHOOL=="OAL")
+dataYEAL <- subset(dFile, SCHOOL=="YEAL")
+boxplot(main="BOX PLOT FOR GPA", dataOAL$GPA, dataYEAL$GPA, ylab ="GPA", col="steelblue")
+
+
+
 ```
 ## 4. (3p) Central Limit Theorem:
 Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distribured normally. (have a look at the example in Statistics_Lecture_5, page9)
