@@ -161,12 +161,31 @@ boxplot(dFile.log$GPA.log)
 ## 7. (2p every item) Single t-test (Welch t-test or Wilcoxon rank-sum test)
 Implement a single t-test for one of your “normally or not-normally distributed” variable:
 
+
+
+a. Aim
+In words, what is your objective here?
+
+**Checking whether the average GPA of the whole students is equal or greater than 70 **
+
+b. Hypothesis and level of significance:
+Write your hypothesis in scientific form and determine the level of significance.
+
+**H0: mu=70, H1: mu < 70, alpha = 0.05**
+
+c. Assumption Check:
+Check the required assumptions and “comment on each of them is a must!”.
+
+**Assuming the data is not normally distributed, equal variance **
+
+d. Indicate “which test you choose” “for what reason”
+**Student t test,assumptions above **
+
+e. Result:
+Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
+
 ```{r}
 boxplot(dFile$GPA)
-
-# H0: mu=70
-# one-sided %95 confidence interval for mu
-# H1: mu < 70
 
 TEST<- t.test(dFile$GPA, mu=70, alt = "less", conf = 0.95)
 TEST$null.value
@@ -174,40 +193,16 @@ TEST$alternative
 TEST$conf.int
 TEST$p.value
 
-#If mu < 70: then the null hypothesis can not be rejected 
-# So true mean is less than 70 our data is not normally distributed.
-
 ```
-
-a. Aim
-In words, what is your objective here?
-
-**ANSWER**
-
-b. Hypothesis and level of significance:
-Write your hypothesis in scientific form and determine the level of significance.
-
-**ANSWER**
-
-c. Assumption Check:
-Check the required assumptions and “comment on each of them is a must!”.
-
-**ANSWER**
-
-d. Indicate “which test you choose” “for what reason”
-
-
-e. Result:
-Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
-
-**ANSWER**
+**Since p-value is less than alpha we reject the null hypothesis**
 
 f. Conclusion:
 You got your result in item e. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
-**ANSWER**
+**We are 95% confident that the average GPA of the students is equal or greater than 70**
 
 g. What can be Type-1 and Type-2 error here?
+**Type-1 Error: when rejecting the null hypothesis while it is in fact true, Type-2 Error: When not rejecting the null hypothesis while it is in fact false**
 
 **ANSWER**
 
