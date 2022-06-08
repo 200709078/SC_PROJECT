@@ -327,37 +327,38 @@ barplot(as.matrix(combined_groups), beside = TRUE, legend.text = TRUE, ylim = c(
 a. Aim
 In words, what is your objective here?
 
-**ANSWER**
+**To test whether there is a statistically significant difference according to the means of 4 different selected groups.**
 
 b. Hypothesis and level of significance:
-Write your hypothesis in scientific form and determine the level of singnificance.
+Write your hypothesis in scientific form and determine the level of significance.
 
-**ANSWER**
+**H0: There is no statistically significant difference according to the means between the groups.**
+**H1: There is a statistically significant difference according to the means between the groups.**
 
 c. Assumption Check:
 Check the required assumptions. “comment on each of them is a must!”.
 
-**ANSWER**
+**There is a statistically significant difference between group4-group3 and group2-group1 as the p_adj value is different from 0. There is no significant difference between the others.**
 
 d. Result of ANOVA:
 Give the output of the test and write down the result (ex:since p value is less than alpha, I reject the null hypothesis)
 
-**ANSWER**
+**Since p=2e-16 is less than 0.05, I reject the null hypothesis.**
 
 e. Conclusion of ANOVA:
 You got your result in item d. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
-**ANSWER**
+**Since there is a great difference between the averages of group4-group3 and group2-group1, these groups are not statistically similar. So this group does not have the same level of success.**
 
 f. Result of Tukey:
 Give the output of the test and write down the result (ex:since p value is less than alpha, I reject the null hypothesis)
 
-**ANSWER**
+**Since p=2e-16 is less than 0.05, I reject the null hypothesis for Tukey test.**
 
 g. Conclusion of Tukey:
 You got your result in item f. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
-**ANSWER**
+**According to the Tukey test, since there is a large difference between the averages of group4-group3 and group2-group1, these groups are not statistically similar. In other words, these groups do not have the same level of success.**
 
 ## 11. (2p every item) Multiple Linear Regression
 
