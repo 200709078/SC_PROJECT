@@ -558,7 +558,7 @@ each of them is a must!”.</li>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Indicate “which test you choose” “for what reason”</li>
 </ol>
-<p><strong>Student t test,assumptions above </strong></p>
+<p><strong>Single t-test,assumptions above </strong></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Result: Give the output of the test and write down the result (ex:
 since p value is less than alpha, I reject the null hypothesis).</li>
@@ -617,31 +617,39 @@ t.test(gpaOAL, gpaYEAL, mu=0, alt=&quot;two.sided&quot;, paired = T, conf = 0.99
 ## sample estimates:
 ## mean difference 
 ##        22.28796</code></pre>
+</div>
+<div id="p-every-item-paired-t-test-1" class="section level2">
+<h2>8. (2p every item) Paired t-test:</h2>
 <ol style="list-style-type: lower-alpha">
 <li>Aim In words, what is your objective here?</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>To compare the difference between two selected groups in the
+same population</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Hypothesis and level of significance: Write your hypothesis in
 scientific form and determine the level of significance.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>H0: mu = 0, H1: mu != 0, alpha = 0.01</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Assumption Check: Tell why you use the paired t test, and Check the
 required assumptions. “comment on each of them is a must!”.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>The variables are metric and the difference of the paired
+values is normally distributed</strong></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Result: Give the output of the test and write down the result (ex:
 since p value is less than alpha, I reject the null hypothesis).</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Since p value is less than alpha, I reject the null
+hypothesis</strong></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Conclusion: You got your result in item d. Write down the conclusion
 of your result, in such a way that, the reader who doesn’t know any
 statistics can understand your findings.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>We are 99% confident that there is no significant difference
+between the means of the two selected groups of the students
+GPAs</strong></p>
 </div>
 <div id="p-every-item-fishers-exact-test-for-count-data" class="section level2">
 <h2>9. (2p every item) Fisher’s exact test for count data</h2>
@@ -665,28 +673,39 @@ TESTFISHER</code></pre>
 <ol style="list-style-type: lower-alpha">
 <li>Aim In words, what is your objective here?</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>We applied this test to compare gender and parents whose
+parents were primary school graduates.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Hypothesis and level of significance: Write your hypothesis in
-scientific form and determine the level of singnificance.</li>
+scientific form and determine the level of significance.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Hypothesis: There is a difference between gender groups
+(female=0/male=1) in terms of parents being primary school
+graduates.</strong> #H0: The odds ratio is equal to or greater than 1
+#H1: The odds ratio is less than 1</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Result: Give the output of the test and write down the result (since
 p value is less than alpha, I reject the null hypothesis).</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>since p value (p-value = 0.2324) is less than 1, I reject the
+null hypothesis.</strong></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Conclusion: You got your result in item c. Write down the conclusion
 of your result, in such a way that, the reader who doesn’t know any
 statistics can understand your findings.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>We can say that the status of parents being primary school
+graduates has the same effect on gender groups.</strong></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Odds Ratio: Comment about the odds ratio, what does it
 indicate?</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Odds ratio shows us the relationship between the probability
+of a situation occurring and the probability of it not happening. The
+calculation is quite simple, the probability of occurrence of the
+curious situation is divided by the probability of not happening. Odds
+ratio (0.8566012) tells us that; The effect of gender on parents being
+primary school graduates is 0.86 times.</strong></p>
 </div>
 <div id="p-every-item-anova-and-tukey-test" class="section level2">
 <h2>10. (2p every item) ANOVA and Tukey Test</h2>
@@ -762,41 +781,56 @@ TukeyHSD (anova_result)</code></pre>
 <ol style="list-style-type: lower-alpha">
 <li>Aim In words, what is your objective here?</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>To test whether there is a statistically significant
+difference according to the means of 4 different selected
+groups.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Hypothesis and level of significance: Write your hypothesis in
-scientific form and determine the level of singnificance.</li>
+scientific form and determine the level of significance.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>H0: There is no statistically significant difference
+according to the means between the groups.</strong> <strong>H1: There is
+a statistically significant difference according to the means between
+the groups.</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Assumption Check: Check the required assumptions. “comment on each
 of them is a must!”.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>There is a statistically significant difference between
+group4-group3 and group2-group1 as the p_adj value is different from 0.
+There is no significant difference between the others.</strong></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Result of ANOVA: Give the output of the test and write down the
 result (ex:since p value is less than alpha, I reject the null
 hypothesis)</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Since p=2e-16 is less than 0.05, I reject the null
+hypothesis.</strong></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Conclusion of ANOVA: You got your result in item d. Write down the
 conclusion of your result, in such a way that, the reader who doesn’t
 know any statistics can understand your findings.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Since there is a great difference between the averages of
+group4-group3 and group2-group1, these groups are not statistically
+similar. So this group does not have the same level of
+success.</strong></p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Result of Tukey: Give the output of the test and write down the
 result (ex:since p value is less than alpha, I reject the null
 hypothesis)</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Since p=2e-16 is less than 0.05, I reject the null hypothesis
+for Tukey test.</strong></p>
 <ol start="7" style="list-style-type: lower-alpha">
 <li>Conclusion of Tukey: You got your result in item f. Write down the
 conclusion of your result, in such a way that, the reader who doesn’t
 know any statistics can understand your findings.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>According to the Tukey test, since there is a large
+difference between the averages of group4-group3 and group2-group1,
+these groups are not statistically similar. In other words, these groups
+do not have the same level of success.</strong></p>
 </div>
 <div id="p-every-item-multiple-linear-regression" class="section level2">
 <h2>11. (2p every item) Multiple Linear Regression</h2>
@@ -843,7 +877,9 @@ confint(modelMLR, conf.level=0.95)</code></pre>
 <ol style="list-style-type: lower-alpha">
 <li>Aim In words, what is your objective here?</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>We examined the linear correlation between GPA dependent
+variable and GENDER and STAY independent variables with Multiple Linear
+Regression.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Regression Equation: Multiple linear regression (MLR) is a
 statistical technique that uses several explanatory variables to predict
@@ -851,42 +887,51 @@ the outcome of a response variable. Which ones are your explanatory
 variables and which one is your response variable? Write down the
 equation of your regression using those variables.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><em>That is, independent variables are X, dependent variables are Y,
+and Y=XB+E.</em> <strong># F(59.2752, 60.790), p=2e-16 &lt;
+0.05</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Hypothesis and level of significance: Write your hypothesis in
 scientific form and determine the level of significance.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>H0: GENDER and STAY independent variables are linearly
+dependent with GPA dependent variable.</strong> <strong>H1: There is no
+Multiple Linear Regression between GENDER and STAY independent variables
+and GPA dependent variable.</strong></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Find the Best Model: Use step function and find the best model,
 describe the reason which makes it the best one.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Since p-value= 0.0009272 &lt;0.5, the best model is the step
+wise model.</strong></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Assumption Check: Check the required assumptions, “comment on each
 of them is a must!”.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>(F-statistic: 7.027 on 2 and 1116 DF, p-value: 0.0009272)
+Since p-value&lt;0.5, there is a linear dependence between the
+variables.</strong></p>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Result: Give the output of the best model and write down the
 result.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Since p-value= 0.0009272 &lt;0.5, the best model is the step
+wise model.</strong></p>
 <ol start="7" style="list-style-type: lower-alpha">
 <li>Conclusion: You got your result in item f. Write down the conclusion
 of your result, in such a way that, the reader who doesn’t know any
 statistics can understand your findings.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
+<p><strong>Gender and the place where the student lives do not affect
+the GPA.</strong></p>
 <ol start="8" style="list-style-type: lower-alpha">
 <li>Prediction: Think of a new X variable, or variables (just make it
 up). Use your best model in order to predict the new Y variable for
 those X variables.</li>
 </ol>
-<p><strong>ANSWER</strong></p>
-<p><strong>AND PRESENTATION VIDEO</strong> <strong>but before we make a
-presentation, we need to check the questions and answers together. Also,
-our time is very short, when can you do it?</strong></p>
+<p><strong>If a new variable such as the student’s weight was added to
+our dataset, this would not have an effect on the GPA. We could use the
+stepwise model for this.</strong></p>
 </div>
 
 

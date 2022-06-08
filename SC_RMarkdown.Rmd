@@ -196,7 +196,6 @@ TEST$p.value
 
 ```
 
-
 f. Conclusion:
 You got your result in item e. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
@@ -222,7 +221,7 @@ plot(gpaOAL, gpaYEAL, abline(a=0, b=1))
 t.test(gpaOAL, gpaYEAL, mu=0, alt="two.sided", paired = T, conf = 0.99)
 
 ```
-## 8. (2p every item) Paired t-test:
+
 a. Aim
 In words, what is your objective here?
 
@@ -386,39 +385,41 @@ plot(modelMLR)
 a. Aim
 In words, what is your objective here?
 
-**ANSWER**
+**We examined the linear correlation between GPA dependent variable and GENDER and STAY independent variables with Multiple Linear Regression.**
 
 b. Regression Equation:
 Multiple linear regression (MLR) is a statistical technique that uses several explanatory variables to predict the outcome of a response variable. Which ones are your explanatory variables and which one is your response variable? Write down the equation of your regression using those variables.
 
-**ANSWER**
+*That is, independent variables are X, dependent variables are Y, and Y=XB+E.*
+**# F(59.2752, 60.790), p=2e-16 < 0.05**
 
 c. Hypothesis and level of significance:
 Write your hypothesis in scientific form and determine the level of significance.
 
-**ANSWER**
+**H0: GENDER and STAY independent variables are linearly dependent with GPA dependent variable.**
+**H1: There is no Multiple Linear Regression between GENDER and STAY independent variables and GPA dependent variable.**
 
 d. Find the Best Model:
 Use step function and find the best model, describe the reason which makes it the best one.
 
-**ANSWER**
+**Since p-value= 0.0009272 <0.5, the best model is the step wise model.**
 
 e. Assumption Check:
 Check the required assumptions, “comment on each of them is a must!”.
 
-**ANSWER**
+**(F-statistic: 7.027 on 2 and 1116 DF, p-value: 0.0009272) Since p-value<0.5, there is a linear dependence between the variables.**
 
 f. Result:
 Give the output of the best model and write down the result.
 
-**ANSWER**
+**Since p-value= 0.0009272 <0.5, the best model is the step wise model.**
 
 g. Conclusion:
 You got your result in item f. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
-**ANSWER**
+**Gender and the place where the student lives do not affect the GPA.**
 
 h. Prediction:
 Think of a new X variable, or variables (just make it up). Use your best model in order to predict the new Y variable for those X variables.
 
-**ANSWER**
+**If a new variable such as the student's weight was added to our dataset, this would not have an effect on the GPA. We could use the stepwise model for this.**
