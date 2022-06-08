@@ -28,26 +28,26 @@ library("readxl")
 dFile <- read_excel("SC_DATA.xls")
 names(dFile)
 ```
-ORDINAL VARIABLE:          
-NUMBER (1470, 1471, ...)
-FULLNAME (Adem VAROL, ... , Wael KABOUK)
-
-CATEGORICAL VARIABLES:
-SCHOOL (OAL, YEAL)
-CLASS (9A, 9B, 9C, ...)
-GENDER (1 : Male, 0 : Female)
-STAY (1 : Stay in the town, 0 : Stay in the village)
-MAF_PS (Mother and father are primary school graduates, 1 : Yes, 0 : No)
-CHILD_1 (1 : One Kid, 0 : Two Kids)
-CHILDREN_3 (1 : Three Kids, 0 : More than three children)
-MAF_DIV (Mother and father divided, 1 : Yes, 0 : No)
-MOTHER_DIED (1 : Yes, 0 : No)
-FATHER_DIED (1 : Yes, 0 : No)
-FAMILY_PATIENT (Has a family member who is sick, 1 : Yes, 0 : No)
-STUDENT_PATIENT (The student has a sick,  1 : Yes, 0 : No)
-
-QUANTITATIVE VARIABLE:
-GPA (Grade point average)
+ORDINAL VARIABLE:   
+NUMBER (1470, 1471, ...)    
+FULLNAME (Adem VAROL, ... , Wael KABOUK)    
+  
+CATEGORICAL VARIABLES:    
+SCHOOL (OAL, YEAL)    
+CLASS (9A, 9B, 9C, ...)   
+GENDER (1 : Male, 0 : Female)   
+STAY (1 : Stay in the town, 0 : Stay in the village)    
+MAF_PS (Mother and father are primary school graduates, 1 : Yes, 0 : No)    
+CHILD_1 (1 : One Kid, 0 : Two Kids)   
+CHILDREN_3 (1 : Three Kids, 0 : More than three children)   
+MAF_DIV (Mother and father divided, 1 : Yes, 0 : No)    
+MOTHER_DIED (1 : Yes, 0 : No)   
+FATHER_DIED (1 : Yes, 0 : No)   
+FAMILY_PATIENT (Has a family member who is sick, 1 : Yes, 0 : No)   
+STUDENT_PATIENT (The student has a sick,  1 : Yes, 0 : No)    
+  
+QUANTITATIVE VARIABLE:    
+GPA (Grade point average)   
 ```{r}
 summary(dFile$GPA)
 ## head(dFile)
