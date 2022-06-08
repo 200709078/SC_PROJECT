@@ -161,8 +161,6 @@ boxplot(dFile.log$GPA.log)
 ## 7. (2p every item) Single t-test (Welch t-test or Wilcoxon rank-sum test)
 Implement a single t-test for one of your “normally or not-normally distributed” variable:
 
-
-
 a. Aim
 In words, what is your objective here?
 
@@ -179,10 +177,13 @@ Check the required assumptions and “comment on each of them is a must!”.
 **Assuming the data is not normally distributed, equal variance **
 
 d. Indicate “which test you choose” “for what reason”
-**Student t test,assumptions above **
+
+**Single t-test,assumptions above **
 
 e. Result:
 Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
+
+**Since p-value is less than alpha we reject the null hypothesis**
 
 ```{r}
 boxplot(dFile$GPA)
@@ -194,7 +195,7 @@ TEST$conf.int
 TEST$p.value
 
 ```
-**Since p-value is less than alpha we reject the null hypothesis**
+
 
 f. Conclusion:
 You got your result in item e. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
@@ -202,9 +203,8 @@ You got your result in item e. Write down the conclusion of your result, in such
 **We are 95% confident that the average GPA of the students is equal or greater than 70**
 
 g. What can be Type-1 and Type-2 error here?
-**Type-1 Error: when rejecting the null hypothesis while it is in fact true, Type-2 Error: When not rejecting the null hypothesis while it is in fact false**
 
-**ANSWER**
+**Type-1 Error: when rejecting the null hypothesis while it is in fact true, Type-2 Error: When not rejecting the null hypothesis while it is in fact false**
 
 ## 8. (2p every item) Paired t-test:
 
@@ -222,31 +222,31 @@ plot(gpaOAL, gpaYEAL, abline(a=0, b=1))
 t.test(gpaOAL, gpaYEAL, mu=0, alt="two.sided", paired = T, conf = 0.99)
 
 ```
-
+## 8. (2p every item) Paired t-test:
 a. Aim
 In words, what is your objective here?
 
-**ANSWER**
+**To compare the difference between two selected groups in the same population**
 
 b. Hypothesis and level of significance:
 Write your hypothesis in scientific form and determine the level of significance.
 
-**ANSWER**
+**H0: mu = 0, H1: mu != 0, alpha = 0.01**
 
 c. Assumption Check:
 Tell why you use the paired t test, and Check the required assumptions. “comment on each of them is a must!”.
 
-**ANSWER**
+**The variables are metric and the difference of the paired values is normally distributed**
 
 d. Result:
 Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
 
-**ANSWER**
+**Since p value is less than alpha, I reject the null hypothesis**
 
 e. Conclusion:
 You got your result in item d. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
-**ANSWER**
+**We are 99% confident that there is no significant difference between the means of the two selected groups of the students GPAs**
 
 
 ## 9. (2p every item) Fisher’s exact test for count data
@@ -264,27 +264,29 @@ TESTFISHER
 a. Aim
 In words, what is your objective here?
 
-**ANSWER**
+**We applied this test to compare gender and parents whose parents were primary school graduates.**
 
 b. Hypothesis and level of significance:
-Write your hypothesis in scientific form and determine the level of singnificance.
+Write your hypothesis in scientific form and determine the level of significance.
 
-**ANSWER**
+**Hypothesis: There is a difference between gender groups (female=0/male=1) in terms of parents being primary school graduates.**
+#H0: The odds ratio is equal to or greater than 1
+#H1: The odds ratio is less than 1
 
 c. Result:
 Give the output of the test and write down the result (since p value is less than alpha, I reject the null hypothesis).
 
-**ANSWER**
+**since p value (p-value = 0.2324) is less than 1, I reject the null hypothesis.**
 
 d. Conclusion:
 You got your result in item c. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
-**ANSWER**
+**We can say that the status of parents being primary school graduates has the same effect on gender groups.**
 
 e. Odds Ratio:
 Comment about the odds ratio, what does it indicate?
 
-**ANSWER**
+**Odds ratio shows us the relationship between the probability of a situation occurring and the probability of it not happening. The calculation is quite simple, the probability of occurrence of the curious situation is divided by the probability of not happening. Odds ratio (0.8566012) tells us that; The effect of gender on parents being primary school graduates is 0.86 times.**
 
 
 ## 10. (2p every item) ANOVA and Tukey Test
@@ -419,7 +421,3 @@ h. Prediction:
 Think of a new X variable, or variables (just make it up). Use your best model in order to predict the new Y variable for those X variables.
 
 **ANSWER**
-
-
-**AND PRESENTATION VIDEO**
-**but before we make a presentation, we need to check the questions and answers together. Also, our time is very short, when can you do it?**
