@@ -16,12 +16,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ## 1. (3p) Data:
 Please find your original data set or data sets; and describe your data in the first step.
 
-ATTRIBUTES OF OUR DATA
-
-# DESCRIBE DATA
+The real data of OAL and YEAL schools were used in order to examine the success of the two schools according to the GPA of the students and the status of their families (for example, parents divorced, mother died, father died, etc.).
 
 GitHub Link: https://github.com/200709078/SC_PROJECT
-
 
 ## 2. (3p) Exploratory and descriptive data analysis:
 Use “Exploratory and descriptive data analysis”. Talk about your categorical and quantitative data or your ordinal variables etc. Write down your comments.
@@ -78,11 +75,12 @@ dataOAL <- subset(dFile, SCHOOL=="OAL")
 dataYEAL <- subset(dFile, SCHOOL=="YEAL")
 boxplot(main="BOX PLOT FOR GPA", dataOAL$GPA, dataYEAL$GPA, ylab ="GPA", col="steelblue")
 
-
+TABL=table(dFile$GENDER)
+barplot(TABL,beside = T, legend = T)
 
 ```
 ## 4. (3p) Central Limit Theorem:
-Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distribured normally. (have a look at the example in Statistics_Lecture_5, page9)
+Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distributed normally. (have a look at the example in Statistics_Lecture_5, page9)
 ```{r}
 library(shiny)
 
@@ -120,7 +118,7 @@ upper.bound <- gpa.mean  + error
 sprintf('%f < x < %f',lower.bound, upper.bound)
 # print(c(lower.bound, upper.bound))
 
-a <- subset(dFile, GPA < 70)
+dataA <- subset(dFile, lower.bound < GPA & GPA<upper.bound)
 
 #1 — Hypothesis for first Fisher’s Exact Test (Alternative Two Sided):
 #Ho: The odds ratio is equal to 1
@@ -135,76 +133,298 @@ a <- subset(dFile, GPA < 70)
 
 ## 6. (3p) Transformation:
 Try to make one transformation (log transformation, Box-Cok transformation, etc) for one of your quantitative variables, which is not normally distributed; but will be normal or more normal, after the transformation.
+```{r}
+
+withoutoutliers <- subset(dFile, 10<GPA & GPA<90)
+
+#log transform
+dFile.log <- transform(withoutoutliers, GPA.log=log(GPA))
+
+#histograms
+hist(dFile.log$GPA.log, col="blue",xlab = "GPA" ,main = "Histogram Plot for GPA",breaks = 15)
+
+#density plots with basic R
+d.GPA <- density(dFile.log$GPA.log)
+plot(d.GPA, xlab = "GPA",main = "Histogram Plot for GPA",col="blue")
+
+#density plots with ggplot2
+ggplot(dFile.log, aes(x=GPA.log)) + geom_density()
+
+#qqplots
+qqnorm(dFile.log$GPA.log, pch = 1, frame = FALSE)
+#qqline(dFile.log$GPA.log, col = "steelblue", lwd = 2,xlab = "GPA")
+
+#boxplots
+boxplot(dFile.log$GPA.log)
+```
 
 ## 7. (2p every item) Single t-test (Welch t-test or Wilcoxon rank-sum test)
 Implement a single t-test for one of your “normally or not-normally distributed” variable:
+
+```{r}
+boxplot(dFile$GPA)
+
+# H0: mu=70
+# one-sided %95 confidence interval for mu
+# H1: mu < 70
+
+TEST<- t.test(dFile$GPA, mu=70, alt = "less", conf = 0.95)
+TEST$null.value
+TEST$alternative
+TEST$conf.int
+TEST$p.value
+
+#If mu < 70: then the null hypothesis can not be rejected 
+# So true mean is less than 70 our data is not normally distributed.
+
+```
+
 a. Aim
 In words, what is your objective here?
+
+**ANSWER**
+
 b. Hypothesis and level of significance:
-Write your hypothesis in scientific form and determine the level of singnificance.
+Write your hypothesis in scientific form and determine the level of significance.
+
+**ANSWER**
+
 c. Assumption Check:
 Check the required assumptions and “comment on each of them is a must!”.
+
+**ANSWER**
+
 d. Indicate “which test you choose” “for what reason”
+
+
 e. Result:
 Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
+
+**ANSWER**
+
 f. Conclusion:
 You got your result in item e. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+
+**ANSWER**
+
 g. What can be Type-1 and Type-2 error here?
 
+**ANSWER**
+
 ## 8. (2p every item) Paired t-test:
+
+```{r}
+gpaOAL <- dFile$GPA[1:451]
+gpaYEAL <- dFile$GPA[452:902]
+
+boxplot(gpaOAL,gpaYEAL)
+
+plot(gpaOAL, gpaYEAL, abline(a=0, b=1))
+
+#H0: Mean difference in SBP is 0
+# two-sided test
+
+t.test(gpaOAL, gpaYEAL, mu=0, alt="two.sided", paired = T, conf = 0.99)
+
+```
+
 a. Aim
 In words, what is your objective here?
+
+**ANSWER**
+
 b. Hypothesis and level of significance:
-Write your hypothesis in scientific form and determine the level of singnificance.
+Write your hypothesis in scientific form and determine the level of significance.
+
+**ANSWER**
+
 c. Assumption Check:
 Tell why you use the paired t test, and Check the required assumptions. “comment on each of them is a must!”.
+
+**ANSWER**
+
 d. Result:
 Give the output of the test and write down the result (ex: since p value is less than alpha, I reject the null hypothesis).
+
+**ANSWER**
+
 e. Conclusion:
 You got your result in item d. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
+**ANSWER**
+
+
 ## 9. (2p every item) Fisher’s exact test for count data
+
+```{r}
+TAB = table(dFile$GENDER,dFile$MAF_PS)
+
+barplot(TAB,beside = T, legend = T)
+
+TESTFISHER = fisher.test(TAB, conf.int = T, conf.level = 0.99)
+TESTFISHER
+
+```
+
 a. Aim
 In words, what is your objective here?
+
+**ANSWER**
+
 b. Hypothesis and level of significance:
 Write your hypothesis in scientific form and determine the level of singnificance.
+
+**ANSWER**
+
 c. Result:
 Give the output of the test and write down the result (since p value is less than alpha, I reject the null hypothesis).
+
+**ANSWER**
+
 d. Conclusion:
 You got your result in item c. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+
+**ANSWER**
+
 e. Odds Ratio:
 Comment about the odds ratio, what does it indicate?
 
+**ANSWER**
+
+
 ## 10. (2p every item) ANOVA and Tukey Test
+
+```{r}
+# ANOVA TEST
+group1 <- dFile$GPA[1:200]   # OAL first 200 students
+group2 <- dFile$GPA[201:400] # OAL second 200 students
+group3 <- dFile$GPA[452:651] # YEAL first 200 students
+group4 <- dFile$GPA[652:851] # YEAL second 200 students
+
+combined_groups <- data.frame(cbind(group1,group2,group3,group4))
+boxplot(combined_groups)
+summary(combined_groups)
+
+stacked_groups <- stack(combined_groups)
+#stacked_groups
+boxplot(stacked_groups$values)
+summary(stacked_groups)
+
+anova_result <- aov(values~ind, data=stacked_groups)
+summary(anova_result)
+
+# F(3, 796) = 159.9, p=2e-16 < 0.05
+
+# TUKEY TEST
+# H0: All means of genders are equal
+# H0: There is no difference in gender
+# H0: There is no interaction between gender
+
+TukeyHSD (anova_result)
+model.tables(anova_result,"mean")
+
+barplot(as.matrix(combined_groups), beside = TRUE, legend.text = TRUE, ylim = c(0,100), xlab = "GROUPS", ylab = "GPA", main = "BARPLOT FOR ANOVA")
+
+```
+
 a. Aim
 In words, what is your objective here?
+
+**ANSWER**
+
 b. Hypothesis and level of significance:
 Write your hypothesis in scientific form and determine the level of singnificance.
+
+**ANSWER**
+
 c. Assumption Check:
 Check the required assumptions. “comment on each of them is a must!”.
+
+**ANSWER**
+
 d. Result of ANOVA:
 Give the output of the test and write down the result (ex:since p value is less than alpha, I reject the null hypothesis)
+
+**ANSWER**
+
 e. Conclusion of ANOVA:
 You got your result in item d. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+
+**ANSWER**
+
 f. Result of Tukey:
 Give the output of the test and write down the result (ex:since p value is less than alpha, I reject the null hypothesis)
+
+**ANSWER**
+
 g. Conclusion of Tukey:
 You got your result in item f. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
 
+**ANSWER**
+
 ## 11. (2p every item) Multiple Linear Regression
+
+```{r}
+modelMLR <- lm(dFile$GPA ~ dFile$GENDER + dFile$STAY)
+summary(modelMLR)
+# Approximately (Multiple R-squared:  0.01244) 1% of variation in GPA can be explained by our modelMLR (GENDER + STAY)
+
+# This tests the Null Hypothesis that all the modelMLR coefficients are 0 (F-statistic: 7.027 on 2 and 1116 DF,  p-value: 0.0009272)
+
+# H0: Bgender=Bstay=0
+
+# Gives on idea of how far observed GPA (y values) are from the predicted or fitted GPA (Residual standard error: 19.61 on 1116 degrees of freedom)
+
+# Calculate Pearson's correlation between Gender and Stay
+cor(dFile$GENDER, dFile$STAY, method = "pearson")
+
+# Ask for confidence intervals for the model coefficients
+confint(modelMLR, conf.level=0.95)
+
+plot(modelMLR)
+
+```
+
 a. Aim
 In words, what is your objective here?
+
+**ANSWER**
+
 b. Regression Equation:
 Multiple linear regression (MLR) is a statistical technique that uses several explanatory variables to predict the outcome of a response variable. Which ones are your explanatory variables and which one is your response variable? Write down the equation of your regression using those variables.
+
+**ANSWER**
+
 c. Hypothesis and level of significance:
-Write your hypothesis in scientific form and determine the level of singnificance.
+Write your hypothesis in scientific form and determine the level of significance.
+
+**ANSWER**
+
 d. Find the Best Model:
 Use step function and find the best model, describe the reason which makes it the best one.
+
+**ANSWER**
+
 e. Assumption Check:
 Check the required assumptions, “comment on each of them is a must!”.
+
+**ANSWER**
+
 f. Result:
 Give the output of the best model and write down the result.
+
+**ANSWER**
+
 g. Conclusion:
 You got your result in item f. Write down the conclusion of your result, in such a way that, the reader who doesn’t know any statistics can understand your findings.
+
+**ANSWER**
+
 h. Prediction:
 Think of a new X variable, or variables (just make it up). Use your best model in order to predict the new Y variable for those X variables.
+
+**ANSWER**
+
+
+**AND PRESENTATION VIDEO**
+**but before we make a presentation, we need to check the questions and answers together. Also, our time is very short, when can you do it?**
