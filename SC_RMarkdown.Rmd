@@ -15,8 +15,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 1. (3p) Data:
 Please find your original data set or data sets; and describe your data in the first step.
+
 ATTRIBUTES OF OUR DATA
-#### DESCRIBE DATA
+
+# DESCRIBE DATA
+
+GitHub Link: https://github.com/200709078/SC_PROJECT
+
 
 ## 2. (3p) Exploratory and descriptive data analysis:
 Use “Exploratory and descriptive data analysis”. Talk about your categorical and quantitative data or your ordinal variables etc. Write down your comments.
