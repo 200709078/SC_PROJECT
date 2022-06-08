@@ -79,6 +79,7 @@ TABL=table(dFile$GENDER)
 barplot(TABL,beside = T, legend = T)
 
 ```
+
 ## 4. (3p) Central Limit Theorem:
 Choose one of your variables. Write down your own function which proves the central limit theorem (CLT): show that whatever the distribution is, the sampling data will be distributed normally. (have a look at the example in Statistics_Lecture_5, page9)
 ```{r}
